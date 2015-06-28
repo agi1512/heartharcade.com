@@ -1,0 +1,15 @@
+@font-face {
+  font-family: belwe;
+  src: url(../font/Belwe.ttf); }
+body {
+  padding-top: 50px;
+  background: #111111;
+  color: #999999; }
+
+.copyright {
+  color: #999999; }
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff; }
+
+/*# sourceMappingURL=base.css.map */

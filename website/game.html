@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% autoescape true %}
 <html lang="en">
 
 <head>
@@ -7,6 +8,8 @@
 
     <title>HearthArcade</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="css/base.css" rel="stylesheet">
     <link href="css/game.css" rel="stylesheet">
     <link href="css/TimeCircles.css" rel="stylesheet">
 </head>
@@ -18,13 +21,16 @@
     <div class="container">
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div>
-            <a class="navbar-brand" href="#">HearthArcade</a>
+            <a class="navbar-brand" href="/">HearthArcade</a>
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Goals</a>
+                    <a href="goals">Goals</a>
                 </li>
                 <li>
-                    <a href="#">Report a Bug</a>
+                    <a href="http://reddit.com/r/heartharcade"><i class="fa fa-reddit"></i> Reddit</a>
+                </li>
+                <li>
+                    <a href="http://twitch.tv/heartharcade"><img height="20px" src="http://s.jtvnw.net/jtv_user_pictures/hosted_images/GlitchIcon_white.png"/> Stream</a>
                 </li>
             </ul>
         </div>
@@ -40,13 +46,18 @@
                 <br>Please connect with Twitch.
                 <br><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png" class="twitch-connect" href="#" />
         </div>
+        <div id="choice" class="overlay" style="display: none">
+            <span>Choose:</span><br>
+            <ul id="mulligan">
+            </ul>
+            <button id="mulliganVote" type="button" class="btn btn-lg">VOTE</button>
+        </div>
+        <div id="waiting" class="overlay">
+            <span class="tit"></span><br>
+            <span class="msg" style="font-size: 40px"></span>
+        </div>
+        <div id="timer" data-timer="15"></div>
         <div class="col-lg-9 board">
-            <div id="timer" data-timer="15"></div>
-            <div id="choice" class="overlay" style="display: none">
-                <span>Choose:</span><br>
-                <ul id="mulligan">
-                </ul>
-            </div>
             <ul id="oHand" class="hand">
             </ul>
             <ul id="oField" class="field">
@@ -54,6 +65,8 @@
             <ul id="fField" class="field">
             </ul>
             <ul id="fHand" class="hand">
+            </ul>
+            <ul id="subopts">
             </ul>
             <div id="fMana" class="manabar">
                 <div class="count">
@@ -75,28 +88,27 @@
             <div id="oHero" class="hero"><span class="atk"></span><span class="armor"></span><span class="hp"></span></div>
             <div id="fHero" class="hero"><span class="atk"></span><span class="armor"></span><span class="hp"></span></div>
             <div id="fDeck" class="deck"><span></span></div>
-            <div id="endButton" class="sidebutton"></div>
-            <div id="timeButton" class="sidebutton"></div>
+            <div id="endButton" class="sidebutton"><button type="button" class="btn">END TURN</button></div>
             <div id="fWeapon" class="weapon"><span class="atk"></span><span class="dur"></span></div>
             <div id="oWeapon" class="weapon"><span class="atk"></span><span class="dur"></span></div>
             <div id="fPower" class="power"><span></span></div>
             <div id="oPower" class="power"><span></span></div>
         </div>
     </div>
-    <span class="copyright">Copyright © HearthArcade, 2015. All copyrighted images and content are property of Blizzard Entertainment, Inc. <a href="http://playhearthstone.com">Click here</a> to play Hearthstone!</span>
+    <span class="copyright">{{ copyright|safe }}</span>
 
     <!-- /.row -->
 
 </div>
 <!-- /.container -->
 
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
 <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
 <script src="/js/tinysort.min.js"></script>
 <script src="/js/TimeCircles.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
 <script src="/js/game.js"></script>
 </body>
-
 </html>
+{% endautoescape %}

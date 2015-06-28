@@ -1,7 +1,8 @@
 application: heartharcade
 version: 1
-runtime: php
+runtime: python27
 api_version: 1
+threadsafe: true
 
 handlers:
 - url: /css
@@ -14,7 +15,11 @@ handlers:
   static_dir: font
 - url: /json
   static_dir: json
-- url: /pusher
-  script: pusher.php
 - url: /.*
-  script: game.php
+  script: game.application
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest

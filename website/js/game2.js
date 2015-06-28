@@ -4,7 +4,7 @@ timer = $("#timer");
 timer.hide();
 waiting = $('#waiting');
 waiting.hide();
-window.CLIENT_ID = '';
+window.CLIENT_ID = 'duqiagqwmt19xptq1by2khc31uanwf';
 $(function() {
     // Initialize. If we are already logged in, there is no
     // need for the connect button
@@ -22,7 +22,7 @@ $(function() {
             };
             history.pushState(state, "HearthArcade", "/");
 
-            var pusher = new Pusher('');
+            var pusher = new Pusher('86740476b2bb82dbe0df');
             var channel = pusher.subscribe('test_channel');
             channel.bind('my_event', function(data) {
                 if (justopened == true) {
@@ -72,13 +72,6 @@ timer.TimeCircles({
             "show": true
         }
     }
-}).stop().addListener(
-function (unit, value, total) {
-  if(value==0 && total==0){
-    waiting.find('.tit').text("Time's up");
-    waiting.find('.msg').text("The time ran out before you could vote.");
-    waiting.show();
-  }
 });
 $('.twitch-connect').click(function() {
     Twitch.login({
@@ -130,12 +123,11 @@ $(document).on("click", ".suboption", function() {
     if (option['tgts'].length > 0) {
         $('.source').data('sub', id);
         $('#subopts').empty().hide();
-        $('.playable .glow').hide();
-        $('.playable').removeClass('playable');
-        $.each(option['tgts'], function(index, tgt) {
-            target=$('[data-id="'+tgt+'"]');
-            target.addClass("targetable");
-            target.find(".glow").show();
+        $(".minion, .hero, .card, .weapon, .power").each(function(index) {
+            if (option['tgts'].indexOf($(this).data('id')) != -1) {
+                $(this).addClass("targetable");
+                $(this).find(".glow").show();
+            }
         });
     } else {
         vote(board['optid'], source, id, -1,position);
@@ -205,7 +197,6 @@ function setBoard() {
             cardLi.append('<img class="part glow" src="../images/gui/' + glow + 'glow.png">');
             cardLi.append('<img class="part art" src="../images/cards/' + card['card'] + '.png">');
             cardLi.append('<img class="part icon" src="../images/gui/mulligan_X.png">');
-            cardLi.find('.icon').hide()
             if (card['card'] != 'GAME_005') {
                 $('#mulligan').append(cardLi);
             }
@@ -501,10 +492,7 @@ function getCardData(cardID) {
 }
 
 function vote(id, option, suboption, target, position) {
-    timer.TimeCircles().stop()
-    waiting.find('.tit').text("Vote sent!");
-    waiting.find('.msg').text("Waiting for the next move...");
-    waiting.show();
+    waiting.show()
     var votedata = {
         id: id,
         opt: option,
@@ -551,12 +539,14 @@ function playCard(position, playedcard){
         playedcard.addClass('source');
         playedcard.data('playposition',position);
         playedcard.data('sub', -1);
-        $('.playable .glow').hide();
-        $('.playable').removeClass('playable');
-        $.each(option['tgts'], function(index, tgt) {
-            target=$('[data-id="'+tgt+'"]');
-            target.addClass("targetable");
-            target.find(".glow").show();
+        $(".minion, .hero, .card, .weapon, .power").each(function(index) {
+            $(this).removeClass("playable");
+            if (option['tgts'].indexOf($(this).data('id')) != -1) {
+                $(this).addClass("targetable");
+                $(this).find(".glow").show();
+            } else {
+                $(this).find(".glow").hide();
+            }
         });
     } else {
         vote(board['optid'], id, -1, -1, position);
